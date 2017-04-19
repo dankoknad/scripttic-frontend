@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
-const Article = ({article}) => {
+const Article = ({article, children}) => {
 	return (
 		<div>	
 			<h3>
@@ -13,6 +13,9 @@ const Article = ({article}) => {
 			<h3>{article.title}</h3>		
 			<p>{article.body}</p>
 			<code>article ID: {article.id}</code>
+			<hr/>
+
+			{children}
 		</div>
 	);
 };

@@ -6,6 +6,7 @@ import {
 
 import ArticlesLinks from './ArticlesLinks';
 import Article from './Article';
+import Comments from './Comments';
 import _ from 'lodash';
 
 import {
@@ -29,6 +30,7 @@ class App extends Component {
       .then(articles => {
 				this.setState({articles});
 
+				// todo adjust code for multiple comments per article
 				_.forEach(articles, article => {
 						getData(`${baseUrl}/${article.id}/comment`)
 							.then(comment => {
@@ -37,12 +39,12 @@ class App extends Component {
 								})
 							})
 				})
-				
+
 			})
   }
 
   render() {
-		const {articles} = this.state;
+		const {articles, comments} = this.state;
 
     return (
 			<Router>
@@ -61,8 +63,11 @@ class App extends Component {
 
 								{	(articles.length) 
 									? <Route path="/article/:articleId" render={({match}) => {
+											const article = _.find(articles, (o) => o.id == match.params.articleId );
 											return (
-												<Article article={_.find(articles, (o) => o.id == match.params.articleId )} />
+												<Article article={article} >
+													<Comments comments={_.filter(comments, (o) => o.article === article.id )}/>
+												</Article>	
 											)
 										}} />
 									: null
@@ -78,10 +83,3 @@ class App extends Component {
 }
 
 export default App;
-
-/*
-{this.state.articles.length
-	? this.state.articles.map(article => <div key={article.id}>{article.title}</div>)
-	: null
-}
-*/
