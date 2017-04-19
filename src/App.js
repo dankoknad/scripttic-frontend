@@ -30,12 +30,11 @@ class App extends Component {
       .then(articles => {
 				this.setState({articles});
 
-				// todo adjust code for multiple comments per article
 				_.forEach(articles, article => {
 						getData(`${baseUrl}/${article.id}/comment`)
-							.then(comment => {
-								comment.length > 0 && this.setState({
-									comments: [...this.state.comments, comment[0]]
+							.then(comments => {
+								comments.length > 0 && this.setState({
+									comments: [...this.state.comments, ...comments]
 								})
 							})
 				})
@@ -63,7 +62,7 @@ class App extends Component {
 
 								{	(articles.length) 
 									? <Route path="/article/:articleId" render={({match}) => {
-											const article = _.find(articles, (o) => o.id == match.params.articleId );
+											const article = _.find(articles, (o) => o.id === Number(match.params.articleId) );
 											return (
 												<Article article={article} >
 													<Comments comments={_.filter(comments, (o) => o.article === article.id )}/>

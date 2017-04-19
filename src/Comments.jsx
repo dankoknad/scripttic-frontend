@@ -1,17 +1,20 @@
 import React from 'react';
 
-const Comments = ({comments}) => (
-	comments.length 
-	? (
-		<div>
-			<div>Comment title: {comments[0].title}</div>
-			<div>Comment body: {comments[0].body}</div>
-			<div>Corresponding article id: <code>{comments[0].article}</code></div>
-			<div></div>
-			<div></div>
+const Comments = ({comments}) => {
+	const renderedComments = comments.map(comment => (
+		<div key={comment.id}>
+			<div>Comment title: {comment.title}</div>
+			<div>Comment body: {comment.body}</div>
+			<div>Corresponding article ID: <code>{comment.article}</code></div>
+			<hr/>
 		</div>
-	)
-	: <em>This article is not commented yet.</em>
-)
+	));
 
-export default Comments;
+	return (		
+		(comments.length > 0) 
+			? <div>{renderedComments}</div>
+			: <em>This article is not commented yet.</em>
+	)
+}
+
+export default Comments;		
