@@ -3,7 +3,7 @@ export const baseUrl = 'http://www.scripttic.com:8000/api/v1/article';
 
 
 // load data
-export const loadArticles = (url) => {
+export const getData = (url) => {
   return fetch(url)
     .then(res => res.json())
 }

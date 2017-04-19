@@ -6,7 +6,7 @@ const ArticlesLinks = ({articles}) => {
 		<div>
 			<h3>Articles:</h3>
 			{articles.length 
-				? articles.map(article => <Link className="list-group-item" key={article.id} to={`/${article.id}`}>{article.title}</Link>)
+				? articles.map(article => <Link className="list-group-item" key={article.id} to={`/article/${article.id}`}>{article.title}</Link>)
 				: null
 			}
 		</div>

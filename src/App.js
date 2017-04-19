@@ -9,7 +9,7 @@ import Article from './Article';
 import _ from 'lodash';
 
 import {
-	loadArticles,
+	getData,
 	baseUrl
 } from './lib/helpers.js';
 
@@ -20,15 +20,25 @@ import './css/index.css';
 
 class App extends Component {
 	state = {
-		articles: []
+		articles: [],
+		comments: []
 	}
 
 	componentDidMount(){
-    loadArticles(baseUrl)
+    getData(baseUrl)
       .then(articles => {
-			  // const ordered =	_.orderBy(data, (o) => o.id, 'desc' );
-				this.setState({articles})
-			})    
+				this.setState({articles});
+
+				_.forEach(articles, article => {
+						getData(`${baseUrl}/${article.id}/comment`)
+							.then(comment => {
+								comment.length > 0 && this.setState({
+									comments: [...this.state.comments, comment[0]]
+								})
+							})
+				})
+				
+			})
   }
 
   render() {
@@ -39,7 +49,7 @@ class App extends Component {
 				<div className="App">
 					<div className="App-header">
 						<img src={logo} className="App-logo" alt="logo" />
-						<h2>Hello Scripttic</h2>
+						<h3>Hello Scripttic</h3>
 					</div>
 					<div className="container">
 						<div className="row">
@@ -50,7 +60,7 @@ class App extends Component {
 								/>
 
 								{	(articles.length) 
-									? <Route path="/:articleId" render={({match}) => {
+									? <Route path="/article/:articleId" render={({match}) => {
 											return (
 												<Article article={_.find(articles, (o) => o.id == match.params.articleId )} />
 											)
