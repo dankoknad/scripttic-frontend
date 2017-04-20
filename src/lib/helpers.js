@@ -8,6 +8,18 @@ export const getData = (url) => {
     .then(res => res.json())
 }
 
+// save data getToken 
+export const getToken = (url, data) => {
+  return fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    // body: data
+    body: "grant_type=Bearer&email=test%40scripttic.com&password=Pass123!"
+  }).then(res => res.json())
+}
+
 // save data addPost
 export const publishPost = (post, url) => {
   return fetch(url, {
@@ -18,6 +30,7 @@ export const publishPost = (post, url) => {
     },
     body: JSON.stringify(post)
   }).then(res => res.json())
+	.then(d => console.log(d))
 }
 
 // save data updatePost

@@ -14,7 +14,8 @@ import _ from 'lodash';
 
 import {
 	getData,
-	baseUrl
+	baseUrl,
+	getToken
 } from './lib/helpers.js';
 
 import 'bootstrap/dist/css/bootstrap.css';
@@ -26,8 +27,8 @@ class App extends Component {
 	state = {
 		articles: [],
 		comments: [],
-		loginEmailVal: ' ',
-		loginPassVal: ' '
+		loginEmailVal: 'test@scripttic.com',
+		loginPassVal: 'Pass123!'
 	}
 
 	componentDidMount(){
@@ -50,13 +51,31 @@ class App extends Component {
 	handleSubmitLogin = (e) => {
 		e.preventDefault();
 
-		const formData = {
-			grant_type: 'Bearer',
-			email: this.state.loginEmailVal,
-			password: this.state.loginPassVal
-		}
+		const formData = "grant_type=Bearer&email=test%40scripttic.com&password=Pass123!";
+		const formDataB = {
+			"grant_type": "Bearer",
+			"email": "test@scripttic.com",
+			"password": "Pass123!"
+		};
+		const formDataC = {
+			grant_type: "Bearer",
+			email: "test@scripttic.com",
+			password: "Pass123!"
+		};
 
-		console.log(formData);
+		
+		fetch('http://www.scripttic.com:8000/oauth2/token', {
+			method: "POST",
+			headers: {
+        'Accept': 'application/x-www-form-urlencoded',
+      	'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			// body: data
+			body: formData
+			// body: JSON.stringify(formData)
+		}).then(res => res.json())
+
+		// console.log(formData);
 	}
 
 	handleLoginEmailVal = (e) => {
