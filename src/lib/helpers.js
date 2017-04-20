@@ -9,15 +9,15 @@ export const getData = (url) => {
 }
 
 // save data getToken 
-export const getToken = (url, data) => {
-  return fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded"
-    },
-    // body: data
-    body: "grant_type=Bearer&email=test%40scripttic.com&password=Pass123!"
-  }).then(res => res.json())
+export const getToken = (url, formData) => {
+  return fetch(url,{
+			method: 'POST',
+			headers: {
+        'Accept': 'application/x-www-form-urlencoded',
+      	'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			body: formData
+		}).then(res => res.text())
 }
 
 // save data addPost

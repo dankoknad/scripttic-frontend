@@ -28,7 +28,8 @@ class App extends Component {
 		articles: [],
 		comments: [],
 		loginEmailVal: 'test@scripttic.com',
-		loginPassVal: 'Pass123!'
+		loginPassVal: 'Pass123!',
+		token: ''
 	}
 
 	componentDidMount(){
@@ -51,31 +52,14 @@ class App extends Component {
 	handleSubmitLogin = (e) => {
 		e.preventDefault();
 
-		const formData = "grant_type=Bearer&email=test%40scripttic.com&password=Pass123!";
-		const formDataB = {
-			"grant_type": "Bearer",
-			"email": "test@scripttic.com",
-			"password": "Pass123!"
-		};
-		const formDataC = {
-			grant_type: "Bearer",
-			email: "test@scripttic.com",
-			password: "Pass123!"
-		};
-
+		const {loginEmailVal, loginPassVal} = this.state;
+		const formData = `grant_type=Bearer&email=${loginEmailVal}&password=${loginPassVal}`;
 		
-		fetch('http://www.scripttic.com:8000/oauth2/token', {
-			method: "POST",
-			headers: {
-        'Accept': 'application/x-www-form-urlencoded',
-      	'Content-Type': 'application/x-www-form-urlencoded'
-			},
-			// body: data
-			body: formData
-			// body: JSON.stringify(formData)
-		}).then(res => res.json())
-
-		// console.log(formData);
+		getToken('http://www.scripttic.com:8000/oauth2/token', formData)
+			.then(token => {
+				this.setState({token});
+				console.log(token);
+			})
 	}
 
 	handleLoginEmailVal = (e) => {
