@@ -1,18 +1,18 @@
 import React from 'react';
 
 
-const Login = ({handleSubmit, value="", emailValue="", passwordValue="", handleChange}) => {
+const Login = ({handleSubmitLogin, loginEmailVal, loginPassVal, handleLoginEmailVal, handleLoginPassVal}) => {
 	return (
 		<div>	
 			<h3>Login Page</h3>		
 			<div>
-				<form className="login-form">
+				<form onSubmit={handleSubmitLogin} className="login-form">
 					<div className="form-group clearfix">
 						<div className="col-sm-4">
 							<label htmlFor="exampleInputEmail1">Email address</label>
 						</div>
 						<div className="col-sm-6 col-md-4">
-							<input type="email" className="form-control" id="exampleInputEmail1" placeholder="Email" />
+							<input type="email" className="form-control" defaultValue={loginEmailVal} onChange={handleLoginEmailVal} placeholder="Email" required />
 						</div>
 					</div>
 					<div className="form-group clearfix">
@@ -20,7 +20,7 @@ const Login = ({handleSubmit, value="", emailValue="", passwordValue="", handleC
 							<label htmlFor="exampleInputPassword1">Password</label>
 						</div>
 						<div className="col-sm-6 col-md-4">
-							<input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" />
+							<input type="password" className="form-control" defaultValue={loginPassVal} onChange={handleLoginPassVal} placeholder="Password" required />
 						</div>
 					</div>
 					<div className="col-sm-6 col-md-4 col-sm-offset-4">

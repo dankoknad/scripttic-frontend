@@ -25,7 +25,9 @@ import './css/index.css';
 class App extends Component {
 	state = {
 		articles: [],
-		comments: []
+		comments: [],
+		loginEmailVal: ' ',
+		loginPassVal: ' '
 	}
 
 	componentDidMount(){
@@ -45,8 +47,34 @@ class App extends Component {
 			})
   }
 
+	handleSubmitLogin = (e) => {
+		e.preventDefault();
+
+		const formData = {
+			grant_type: 'Bearer',
+			email: this.state.loginEmailVal,
+			password: this.state.loginPassVal
+		}
+
+		console.log(formData);
+	}
+
+	handleLoginEmailVal = (e) => {
+		e.preventDefault();
+		
+		// console.log(e.target.value);
+		this.setState({loginEmailVal: e.target.value.trim()});
+	}
+	
+	handleLoginPassVal = (e) => {
+		e.preventDefault();
+		
+		// console.log(e.target.value);
+		this.setState({loginPassVal: e.target.value.trim()});
+	}
+
   render() {
-		const {articles, comments} = this.state;
+		const {articles, comments, loginEmailVal, loginPassVal} = this.state;
 
     return (
 			<Router>
@@ -98,7 +126,13 @@ class App extends Component {
 								}
 
 								<Route path="/login" render={() => (
-                	<Login />
+										<Login
+											handleSubmitLogin={this.handleSubmitLogin}
+											loginEmailVal={loginEmailVal}
+											loginPassVal={loginPassVal}
+											handleLoginEmailVal={this.handleLoginEmailVal}
+											handleLoginPassVal={this.handleLoginPassVal}
+										/>
 									)}
 								/>
 
