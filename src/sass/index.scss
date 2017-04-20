@@ -5,3 +5,11 @@ $r: #f0f;
 	padding-top: 10px;
 	padding-bottom: 10px;
 }
+
+.login-form {
+	margin-top: 50px;
+	
+	@media (min-width: 768px){
+		text-align: right;
+	}
+}

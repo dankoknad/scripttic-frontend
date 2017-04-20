@@ -1,5 +1,4 @@
 import React from 'react';
-import {Form, FormGroup, ControlLabel, FormControl, Col, Button} from 'react-bootstrap';
 
 
 const Login = ({handleSubmit, value="", emailValue="", passwordValue="", handleChange}) => {
@@ -7,33 +6,27 @@ const Login = ({handleSubmit, value="", emailValue="", passwordValue="", handleC
 		<div>	
 			<h3>Login Page</h3>		
 			<div>
-				<Form horizontal>
-					<FormGroup controlId="formHorizontalEmail">
-						<Col componentClass={ControlLabel} sm={4}>
-							Email
-						</Col>
-						<Col sm={6} md={4}>
-							<FormControl type="email" placeholder="Email" />
-						</Col>
-					</FormGroup>
-
-					<FormGroup controlId="formHorizontalPassword">
-						<Col componentClass={ControlLabel} sm={4}>
-							Password
-						</Col>
-						<Col sm={6} md={4}>
-							<FormControl type="password" placeholder="Password" />
-						</Col>
-					</FormGroup>
-
-					<FormGroup className="text-right">
-						<Col smOffset={4} sm={6} md={4} >
-							<Button type="submit">
-								Sign in
-							</Button>
-						</Col>
-					</FormGroup>
-				</Form>
+				<form className="login-form">
+					<div className="form-group clearfix">
+						<div className="col-sm-4">
+							<label htmlFor="exampleInputEmail1">Email address</label>
+						</div>
+						<div className="col-sm-6 col-md-4">
+							<input type="email" className="form-control" id="exampleInputEmail1" placeholder="Email" />
+						</div>
+					</div>
+					<div className="form-group clearfix">
+ 						<div className="col-sm-4">
+							<label htmlFor="exampleInputPassword1">Password</label>
+						</div>
+						<div className="col-sm-6 col-md-4">
+							<input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" />
+						</div>
+					</div>
+					<div className="col-sm-6 col-md-4 col-sm-offset-4">
+						<button type="submit" className="btn btn-default">Sign in</button>
+					</div>
+				</form>		
 			</div>
 		</div>
 	);
