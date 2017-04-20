@@ -9,6 +9,7 @@ import {LinkContainer} from 'react-router-bootstrap';
 import ArticlesLinks from './ArticlesLinks';
 import Article from './Article';
 import Comments from './Comments';
+import Login from './Login';
 import _ from 'lodash';
 
 import {
@@ -97,7 +98,7 @@ class App extends Component {
 								}
 
 								<Route path="/login" render={() => (
-                	<div>Login page</div>
+                	<Login />
 									)}
 								/>
 
