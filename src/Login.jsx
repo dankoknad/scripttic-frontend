@@ -24,7 +24,7 @@ const Login = ({handleSubmitLogin, loginEmailVal, loginPassVal, handleLoginEmail
 						</div>
 					</div>
 					<div className="col-sm-6 col-md-4 col-sm-offset-4">
-						<button type="submit" className="btn btn-default">Sign in</button>
+						<button type="submit" className="btn btn-default">Log in</button>
 					</div>
 				</form>
 			</div>

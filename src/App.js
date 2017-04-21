@@ -113,7 +113,7 @@ class App extends Component {
 									<NavItem eventKey={2} href="#">Articles</NavItem>
 								</LinkContainer>
 								<LinkContainer to="/login" activeClassName="active">
-									<NavItem eventKey={2} href="#">Login</NavItem>
+									<NavItem eventKey={2} href="#">Log in</NavItem>
 								</LinkContainer>
 								<NavDropdown eventKey={3} title="Dropdown to nowhere" id="basic-nav-dropdown">
 									<MenuItem eventKey={3.1}>Action</MenuItem>
