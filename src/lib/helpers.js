@@ -42,12 +42,18 @@ export const logOut = (token) => {
 		}
 	})
 	.then((response) => {
-        if (!response.ok) {
-            throw Error(response.statusText);
-        }
-        return response;
-    })
+		if (!response.ok) {
+			throw Error(response.statusText);
+		}
+		return response;
+	})
 }
+
+
+
+
+
+
 
 // save data addPost
 export const publishPost = (post, url) => {

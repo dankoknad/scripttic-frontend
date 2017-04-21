@@ -11,6 +11,7 @@ import Article from './Article';
 import Comments from './Comments';
 import Login from './Login';
 import Logout from './Logout';
+import Farewell from './Farewell';
 import Profile from './Profile';
 import _ from 'lodash';
 
@@ -167,18 +168,22 @@ class App extends Component {
 								}
 
 								<Route path="/login" render={() => (
-										<Login
-											handleSubmitLogin={this.handleSubmitLogin}
-											loginEmailVal={loginEmailVal}
-											loginPassVal={loginPassVal}
-											handleLoginEmailVal={this.handleLoginEmailVal}
-											handleLoginPassVal={this.handleLoginPassVal}
-										/>
+									(token.length !== 36)
+										? <Login
+												handleSubmitLogin={this.handleSubmitLogin}
+												loginEmailVal={loginEmailVal}
+												loginPassVal={loginPassVal}
+												handleLoginEmailVal={this.handleLoginEmailVal}
+												handleLoginPassVal={this.handleLoginPassVal}
+											/>
+										: <h3>Success! Now you are logged.</h3>
 									)}
 								/>
 
 								<Route path="/logout" render={() => (
-										<Logout handleLogout={this.handleLogout}/>
+										(token.length === 36)
+											? <Logout handleLogout={this.handleLogout}/>
+											: <Farewell />
 									)}
 								/>
 
