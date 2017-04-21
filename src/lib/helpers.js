@@ -32,6 +32,23 @@ export const getLoggedUser = (token) => {
 	.then(res => res.json())
 }
 
+// logout
+export const logOut = (token) => {
+  return fetch(`http://www.scripttic.com:8000/api/v1/user/logout?api_key=Bearer ${token}`, {
+		method: 'GET',
+		headers: {
+			'Accept': 'application/json',
+			'Content-Type': 'application/json'
+		}
+	})
+	.then((response) => {
+        if (!response.ok) {
+            throw Error(response.statusText);
+        }
+        return response;
+    })
+}
+
 // save data addPost
 export const publishPost = (post, url) => {
   return fetch(url, {

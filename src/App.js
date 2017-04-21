@@ -10,6 +10,7 @@ import ArticlesLinks from './ArticlesLinks';
 import Article from './Article';
 import Comments from './Comments';
 import Login from './Login';
+import Logout from './Logout';
 import Profile from './Profile';
 import _ from 'lodash';
 
@@ -17,7 +18,8 @@ import {
 	getData,
 	baseUrl,
 	getToken,
-	getLoggedUser
+	getLoggedUser,
+	logOut
 } from './lib/helpers.js';
 
 import 'bootstrap/dist/css/bootstrap.css';
@@ -84,6 +86,20 @@ class App extends Component {
 		this.setState({loginPassVal: e.target.value.trim()});
 	}
 
+	// log out
+	handleLogout = (e) => {
+		e.preventDefault();
+		const {token} = this.state;
+
+		logOut(token)
+			.catch((error) => {
+        this.setState({
+					token: '',
+					loggedUser: {}
+				})
+    });
+	}
+
   render() {
 		const {articles, comments, loginEmailVal, loginPassVal, loggedUser, token} = this.state;
 
@@ -97,7 +113,7 @@ class App extends Component {
 					<Navbar inverse collapseOnSelect>
 						<Navbar.Header>
 							<Navbar.Toggle />
-							{(loggedUser.firstName && token.length ===36) && 
+							{(loggedUser.firstName && token.length === 36) && 
 								<LinkContainer to="/profile" exact activeClassName="active">
 										<NavItem eventKey={2} href="#">
 									<Navbar.Brand>
@@ -112,9 +128,14 @@ class App extends Component {
 								<LinkContainer to="/" exact activeClassName="active">
 									<NavItem eventKey={2} href="#">Articles</NavItem>
 								</LinkContainer>
-								<LinkContainer to="/login" activeClassName="active">
-									<NavItem eventKey={2} href="#">Log in</NavItem>
-								</LinkContainer>
+								{(token.length !== 36)
+									?	<LinkContainer to="/login" activeClassName="active">
+											<NavItem eventKey={2} href="#">Log in</NavItem>
+										</LinkContainer>
+									:	<LinkContainer to="/logout" activeClassName="active">
+											<NavItem eventKey={2} href="#">Log out</NavItem>
+										</LinkContainer>
+								}
 								<NavDropdown eventKey={3} title="Dropdown to nowhere" id="basic-nav-dropdown">
 									<MenuItem eventKey={3.1}>Action</MenuItem>
 									<MenuItem eventKey={3.2}>Another action</MenuItem>
@@ -153,6 +174,11 @@ class App extends Component {
 											handleLoginEmailVal={this.handleLoginEmailVal}
 											handleLoginPassVal={this.handleLoginPassVal}
 										/>
+									)}
+								/>
+
+								<Route path="/logout" render={() => (
+										<Logout handleLogout={this.handleLogout}/>
 									)}
 								/>
 
