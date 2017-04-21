@@ -15,7 +15,8 @@ import _ from 'lodash';
 import {
 	getData,
 	baseUrl,
-	getToken
+	getToken,
+	getLoggedUser
 } from './lib/helpers.js';
 
 import 'bootstrap/dist/css/bootstrap.css';
@@ -29,9 +30,11 @@ class App extends Component {
 		comments: [],
 		loginEmailVal: 'test@scripttic.com',
 		loginPassVal: 'Pass123!',
-		token: ''
+		token: '',
+		loggedUser: {}
 	}
 
+	// get initial data
 	componentDidMount(){
     getData(baseUrl)
       .then(articles => {
@@ -49,6 +52,7 @@ class App extends Component {
 			})
   }
 
+	// login
 	handleSubmitLogin = (e) => {
 		e.preventDefault();
 
@@ -59,6 +63,9 @@ class App extends Component {
 			.then(token => {
 				this.setState({token});
 				console.log(token);
+
+					getLoggedUser(token)
+						.then(user => this.setState({loggedUser: user}))
 			})
 	}
 
@@ -77,7 +84,7 @@ class App extends Component {
 	}
 
   render() {
-		const {articles, comments, loginEmailVal, loginPassVal} = this.state;
+		const {articles, comments, loginEmailVal, loginPassVal, loggedUser} = this.state;
 
     return (
 			<Router>
@@ -89,6 +96,11 @@ class App extends Component {
 					<Navbar inverse collapseOnSelect>
 						<Navbar.Header>
 							<Navbar.Toggle />
+							{loggedUser.firstName && 
+								<Navbar.Brand>
+									<a href="#">Hello {loggedUser.firstName}</a>
+								</Navbar.Brand>
+							}
 						</Navbar.Header>
 						<Navbar.Collapse>
 							<Nav pullRight>

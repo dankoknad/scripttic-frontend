@@ -20,6 +20,18 @@ export const getToken = (url, formData) => {
 		}).then(res => res.text())
 }
 
+// get currently logged user
+export const getLoggedUser = (token) => {
+  return fetch(`http://www.scripttic.com:8000/api/v1/user?api_key=Bearer ${token}`, {
+		method: 'GET',
+		headers: {
+			'Accept': 'application/json',
+			'Content-Type': 'application/json'
+		}
+	})
+	.then(res => res.json())
+}
+
 // save data addPost
 export const publishPost = (post, url) => {
   return fetch(url, {
