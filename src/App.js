@@ -10,6 +10,7 @@ import ArticlesLinks from './ArticlesLinks';
 import Article from './Article';
 import Comments from './Comments';
 import Login from './Login';
+import Profile from './Profile';
 import _ from 'lodash';
 
 import {
@@ -84,7 +85,7 @@ class App extends Component {
 	}
 
   render() {
-		const {articles, comments, loginEmailVal, loginPassVal, loggedUser} = this.state;
+		const {articles, comments, loginEmailVal, loginPassVal, loggedUser, token} = this.state;
 
     return (
 			<Router>
@@ -96,10 +97,14 @@ class App extends Component {
 					<Navbar inverse collapseOnSelect>
 						<Navbar.Header>
 							<Navbar.Toggle />
-							{loggedUser.firstName && 
-								<Navbar.Brand>
-									<a href="#">Hello {loggedUser.firstName}</a>
-								</Navbar.Brand>
+							{(loggedUser.firstName && token.length ===36) && 
+								<LinkContainer to="/profile" exact activeClassName="active">
+										<NavItem eventKey={2} href="#">
+									<Navbar.Brand>
+											Hello {loggedUser.firstName}
+									</Navbar.Brand>
+											</NavItem>
+								</LinkContainer>
 							}
 						</Navbar.Header>
 						<Navbar.Collapse>
@@ -148,6 +153,11 @@ class App extends Component {
 											handleLoginEmailVal={this.handleLoginEmailVal}
 											handleLoginPassVal={this.handleLoginPassVal}
 										/>
+									)}
+								/>
+
+								<Route exact path="/profile" render={() => (
+										<Profile loggedUser={loggedUser} />
 									)}
 								/>
 
