@@ -175,6 +175,7 @@ class App extends Component {
 												loginPassVal={loginPassVal}
 												handleLoginEmailVal={this.handleLoginEmailVal}
 												handleLoginPassVal={this.handleLoginPassVal}
+												token={token}
 											/>
 										: <h3>Success! Now you are logged.</h3>
 									)}
