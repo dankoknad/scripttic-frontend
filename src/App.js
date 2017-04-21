@@ -9,7 +9,8 @@ import {LinkContainer} from 'react-router-bootstrap';
 import ArticlesLinks from './ArticlesLinks';
 import Article from './Article';
 import Comments from './Comments';
-import Login from './Login';
+import LogIn from './LogIn';
+import SignIn from './SignIn';
 import Logout from './Logout';
 import Farewell from './Farewell';
 import Profile from './Profile';
@@ -169,15 +170,17 @@ class App extends Component {
 
 								<Route path="/login" render={() => (
 									(token.length !== 36)
-										? <Login
+										? <LogIn
 												handleSubmitLogin={this.handleSubmitLogin}
 												loginEmailVal={loginEmailVal}
 												loginPassVal={loginPassVal}
 												handleLoginEmailVal={this.handleLoginEmailVal}
 												handleLoginPassVal={this.handleLoginPassVal}
 												token={token}
-											/>
-										: <h3>Success! Now you are logged.</h3>
+											>
+												<SignIn />
+											</LogIn>
+										: <h3 className="text-info">Success! Now you are logged.</h3>
 									)}
 								/>
 
