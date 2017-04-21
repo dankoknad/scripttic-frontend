@@ -21,7 +21,8 @@ import {
 	baseUrl,
 	getToken,
 	getLoggedUser,
-	logOut
+	logOut,
+	registration
 } from './lib/helpers.js';
 
 import 'bootstrap/dist/css/bootstrap.css';
@@ -33,10 +34,14 @@ class App extends Component {
 	state = {
 		articles: [],
 		comments: [],
-		loginEmailVal: 'test@scripttic.com',
+		loginEmailVal: '',
 		loginPassVal: 'Pass123!',
 		token: '',
-		loggedUser: {}
+		loggedUser: {},
+		signInFirstName: '',
+		signInLastName: '',
+		signInEmailVal: '',
+		signInPassVal: ''
 	}
 
 	// get initial data
@@ -102,8 +107,49 @@ class App extends Component {
     });
 	}
 
+	// sign in
+	handleRegistrationInputs = (e) => {
+		e.preventDefault();
+		
+		this.setState({[e.target.name]: e.target.value})
+	}
+
+	handleSubmitRegistration = (e) => {
+		e.preventDefault();
+		const {signInFirstName, signInLastName, signInEmailVal, signInPassVal} = this.state;
+
+		const newUser = {
+			email: signInEmailVal,
+			pass: signInPassVal,
+			firstName: signInFirstName,
+			lastName: signInLastName
+		}
+
+		fetch('http://www.scripttic.com:8000/api/v1/user', {
+			method: 'POST',
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(newUser)
+		}).then(res => res.json())
+		.then(d => { console.log(d)})
+
+		// registration(newUser)
+		// 	.then(() => {
+		// 		this.setState({
+		// 			signInFirstName: '',
+		// 			signInLastName: '',
+		// 			signInEmailVal: '',
+		// 			signInPassVal: ''
+		// 		})
+		// 		console.log('registration success');
+		// 	})
+
+	}
+
   render() {
-		const {articles, comments, loginEmailVal, loginPassVal, loggedUser, token} = this.state;
+		const {articles, comments, loginEmailVal, loginPassVal, loggedUser, token, signInFirstName, signInLastName, signInEmailVal, signInPassVal} = this.state;
 
     return (
 			<Router>
@@ -178,7 +224,14 @@ class App extends Component {
 												handleLoginPassVal={this.handleLoginPassVal}
 												token={token}
 											>
-												<SignIn />
+												<SignIn
+													handleRegistrationInputs={this.handleRegistrationInputs}
+													handleSubmitRegistration={this.handleSubmitRegistration}
+													signInFirstName={signInFirstName}
+													signInLastName={signInLastName}
+													signInEmailVal={signInEmailVal}
+													signInPassVal={signInPassVal}
+												/>
 											</LogIn>
 										: <h3 className="text-info">Success! Now you are logged.</h3>
 									)}

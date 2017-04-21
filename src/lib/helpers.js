@@ -49,6 +49,17 @@ export const logOut = (token) => {
 	})
 }
 
+// register new user
+export const registration = (newUser) => {
+  return fetch('http://www.scripttic.com:8000/api/v1/user', {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(newUser)
+  }).then(res => res.json())
+}
 
 
 

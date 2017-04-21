@@ -7,11 +7,11 @@ const Login = ({handleSubmitLogin, loginEmailVal, loginPassVal, handleLoginEmail
 		<div>	
 			<h3>Log In</h3>		
 			<div>
-				<form onSubmit={handleSubmitLogin} className="login-form">
+				<form onSubmit={handleSubmitLogin} className="login-form"  >
 					<div className={hasErrorClass}>
 						<div className="col-sm-4">Email address</div>
 						<div className="col-sm-6 col-md-4">
-							<input type="email" className="form-control" defaultValue={loginEmailVal} onChange={handleLoginEmailVal} placeholder="Email" required />
+							<input type="email" className="form-control" value={loginEmailVal} onChange={handleLoginEmailVal} placeholder="Email" required />
 						</div>
 					</div>
 					<div className={hasErrorClass}>
