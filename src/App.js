@@ -14,6 +14,9 @@ import SignIn from './SignIn';
 import Logout from './Logout';
 import Farewell from './Farewell';
 import Profile from './Profile';
+import NewArticleForm from './NewArticleForm';
+import MyArticles from './MyArticles';
+import MyComments from './MyComments';
 import _ from 'lodash';
 
 import {
@@ -34,7 +37,7 @@ class App extends Component {
 	state = {
 		articles: [],
 		comments: [],
-		loginEmailVal: '',
+		loginEmailVal: 'dankomilutinovic@gmail.com',
 		loginPassVal: 'Pass123!',
 		token: '',
 		loggedUser: {},
@@ -58,7 +61,19 @@ class App extends Component {
 								})
 							})
 				})
+			})
+	
+			// log myself when app start
+			const {loginEmailVal, loginPassVal} = this.state;
+			const formData = `grant_type=Bearer&email=${loginEmailVal}&password=${loginPassVal}`;
 
+			getToken('http://www.scripttic.com:8000/oauth2/token', formData)
+			.then(token => {
+				this.setState({token});
+				console.log(token);
+
+					getLoggedUser(token)
+						.then(user => this.setState({loggedUser: user}))
 			})
   }
 
@@ -134,6 +149,7 @@ class App extends Component {
 			body: JSON.stringify(newUser)
 		}).then(res => res.json())
 		.then(d => { console.log(d)})
+		// console.log(newUser);
 
 		// registration(newUser)
 		// 	.then(() => {
@@ -245,7 +261,11 @@ class App extends Component {
 								/>
 
 								<Route exact path="/profile" render={() => (
-										<Profile loggedUser={loggedUser} />
+										<Profile loggedUser={loggedUser}>
+											<NewArticleForm />
+											<MyArticles />
+											<MyComments />
+										</Profile>
 									)}
 								/>
 

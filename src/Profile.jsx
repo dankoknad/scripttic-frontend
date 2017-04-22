@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Profile = ({loggedUser}) => {
+const Profile = ({loggedUser, children}) => {
 	return (
 		<div>
 			<h3>Profile Page</h3>
@@ -9,6 +9,8 @@ const Profile = ({loggedUser}) => {
 				<h4>email: <a href={`mailto:${loggedUser.email}`}>{loggedUser.email}</a></h4>
 				<h4><code>ID: {loggedUser.id}</code></h4>
 			</div>
+			{/* NewArticleForm, MyArticles, MyComments */}
+			{children}
 		</div>
 	);
 };
