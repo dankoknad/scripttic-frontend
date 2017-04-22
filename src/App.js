@@ -44,7 +44,9 @@ class App extends Component {
 		signInFirstName: '',
 		signInLastName: '',
 		signInEmailVal: '',
-		signInPassVal: ''
+		signInPassVal: '',
+		newArticleTitle: 'abc',
+		newArticleContent: 'def'
 	}
 
 	// get initial data
@@ -75,6 +77,7 @@ class App extends Component {
 					getLoggedUser(token)
 						.then(user => this.setState({loggedUser: user}))
 			})
+			// remove section above later
   }
 
 	// login
@@ -164,8 +167,34 @@ class App extends Component {
 
 	}
 
+	// add new article
+	handleNewArticleInputs = (e) => {
+		e.preventDefault();
+		
+		this.setState({[e.target.name]: e.target.value.replace(/\s+/g, ' ')})
+	}
+
+	postNewArticle = (e) => {
+		e.preventDefault();
+		const {token, newArticleTitle, newArticleContent, loggedUser} = this.state;
+		const payload = {
+			poster: loggedUser.id,
+			body: newArticleContent,
+			title: newArticleTitle
+		}
+
+		fetch(`http://www.scripttic.com:8000/api/v1/article?api_key=Bearer ${token}`, {
+			method: 'POST',
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(payload)
+		}).then(res => res.json())
+	}
+
   render() {
-		const {articles, comments, loginEmailVal, loginPassVal, loggedUser, token, signInFirstName, signInLastName, signInEmailVal, signInPassVal} = this.state;
+		const {articles, comments, loginEmailVal, loginPassVal, loggedUser, token, signInFirstName, signInLastName, signInEmailVal, signInPassVal, newArticleTitle, newArticleContent} = this.state;
 
     return (
 			<Router>
@@ -262,7 +291,12 @@ class App extends Component {
 
 								<Route exact path="/profile" render={() => (
 										<Profile loggedUser={loggedUser}>
-											<NewArticleForm />
+											<NewArticleForm
+												newArticleTitle={newArticleTitle}
+												newArticleContent={newArticleContent}
+												handleNewArticleInputs={this.handleNewArticleInputs}
+												postNewArticle={this.postNewArticle}
+											/>
 											<MyArticles />
 											<MyComments />
 										</Profile>
