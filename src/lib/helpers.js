@@ -61,7 +61,17 @@ export const registration = (newUser) => {
   }).then(res => res.json())
 }
 
-
+// post new article
+export const submitNewArticle = (token, payload) => {
+	return fetch(`http://www.scripttic.com:8000/api/v1/article?api_key=Bearer ${token}`, {
+		method: 'POST',
+		headers: {
+			'Accept': 'application/json',
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify(payload)
+	}).then(res => res.json())
+}
 
 
 

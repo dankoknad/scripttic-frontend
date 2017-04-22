@@ -25,7 +25,7 @@ import {
 	getToken,
 	getLoggedUser,
 	logOut,
-	registration
+	submitNewArticle
 } from './lib/helpers.js';
 
 import 'bootstrap/dist/css/bootstrap.css';
@@ -45,8 +45,8 @@ class App extends Component {
 		signInLastName: '',
 		signInEmailVal: '',
 		signInPassVal: '',
-		newArticleTitle: 'abc',
-		newArticleContent: 'def'
+		newArticleTitle: '',
+		newArticleContent: ''
 	}
 
 	// get initial data
@@ -183,14 +183,18 @@ class App extends Component {
 			title: newArticleTitle
 		}
 
-		fetch(`http://www.scripttic.com:8000/api/v1/article?api_key=Bearer ${token}`, {
-			method: 'POST',
-			headers: {
-				'Accept': 'application/json',
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(payload)
-		}).then(res => res.json())
+		submitNewArticle(token, payload)
+			.then(() => {
+				getData(baseUrl)
+					.then(articles => {
+						this.setState({
+							articles,
+							newArticleTitle: '',
+							newArticleContent: ''
+						});
+					})
+			})
+
 	}
 
   render() {
@@ -297,7 +301,9 @@ class App extends Component {
 												handleNewArticleInputs={this.handleNewArticleInputs}
 												postNewArticle={this.postNewArticle}
 											/>
-											<MyArticles />
+											<MyArticles
+												articles={_.filter(articles, (o) => o.poster === loggedUser.id )}
+											/>
 											<MyComments />
 										</Profile>
 									)}
