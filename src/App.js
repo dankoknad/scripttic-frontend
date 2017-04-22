@@ -17,6 +17,7 @@ import Profile from './Profile';
 import NewArticleForm from './NewArticleForm';
 import MyArticles from './MyArticles';
 import MyComments from './MyComments';
+import AddCommentForm from './AddCommentForm';
 import _ from 'lodash';
 
 import {
@@ -25,7 +26,8 @@ import {
 	getToken,
 	getLoggedUser,
 	logOut,
-	submitNewArticle
+	submitNewArticle,
+	submitNewComment
 } from './lib/helpers.js';
 
 import 'bootstrap/dist/css/bootstrap.css';
@@ -46,7 +48,9 @@ class App extends Component {
 		signInEmailVal: '',
 		signInPassVal: '',
 		newArticleTitle: '',
-		newArticleContent: ''
+		newArticleContent: '',
+		newCommentTitle: 'abc',
+		newCommentContent: 'def'
 	}
 
 	// get initial data
@@ -72,7 +76,6 @@ class App extends Component {
 			getToken('http://www.scripttic.com:8000/oauth2/token', formData)
 			.then(token => {
 				this.setState({token});
-				console.log(token);
 
 					getLoggedUser(token)
 						.then(user => this.setState({loggedUser: user}))
@@ -90,7 +93,6 @@ class App extends Component {
 		getToken('http://www.scripttic.com:8000/oauth2/token', formData)
 			.then(token => {
 				this.setState({token});
-				console.log(token);
 
 					getLoggedUser(token)
 						.then(user => this.setState({loggedUser: user}))
@@ -194,11 +196,39 @@ class App extends Component {
 						});
 					})
 			})
+	}
 
+	// add new comment
+	handleNewCommentInputs = (e) => {
+		e.preventDefault();
+		
+		this.setState({[e.target.name]: e.target.value.replace(/\s+/g, ' ')})
+	}
+	
+	postNewComment = (e, articleId) => {
+		e.preventDefault();
+		const {token, newCommentTitle, newCommentContent, loggedUser} = this.state;
+		const payload = {
+			poster: loggedUser.id,
+			body: newCommentContent,
+			title: newCommentTitle
+		}
+
+		submitNewComment(token, payload, articleId)
+			.then(() => {
+				getData(`${baseUrl}/${articleId}/comment`)
+					.then(comments => {
+						this.setState({
+							comments,
+							newCommentTitle: '',
+							newCommentContent: ''
+						})
+					})				
+			})
 	}
 
   render() {
-		const {articles, comments, loginEmailVal, loginPassVal, loggedUser, token, signInFirstName, signInLastName, signInEmailVal, signInPassVal, newArticleTitle, newArticleContent} = this.state;
+		const {articles, comments, loginEmailVal, loginPassVal, loggedUser, token, signInFirstName, signInLastName, signInEmailVal, signInPassVal, newArticleTitle, newArticleContent, newCommentTitle, newCommentContent} = this.state;
 
     return (
 			<Router>
@@ -256,6 +286,13 @@ class App extends Component {
 											const article = _.find(articles, (o) => o.id === Number(match.params.articleId) );
 											return (
 												<Article article={article} >
+													<AddCommentForm
+														newCommentTitle={newCommentTitle}
+														newCommentContent={newCommentContent}
+														handleNewCommentInputs={this.handleNewCommentInputs}
+														postNewComment={this.postNewComment}
+														articleId={article.id}
+													/>
 													<Comments comments={_.filter(comments, (o) => o.article === article.id )}/>
 												</Article>	
 											)
