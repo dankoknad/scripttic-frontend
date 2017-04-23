@@ -3,7 +3,7 @@ import React from 'react';
 const AddCommentForm = ({newCommentTitle, newCommentContent, handleNewCommentInputs, postNewComment, articleId}) => {
 	return (
 		<div className="new-comment-form-container">
-			<h4>It's a nice day to writte a new article!</h4>
+			<h4>Have somethingto say? Please go ahead!</h4>
 			<form onSubmit={(e) => postNewComment(e, articleId)}>
 				<p>Title</p>
 				<div className="form-group">

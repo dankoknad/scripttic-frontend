@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import giphy from './img/giphy-blink.gif';
+import giphy from '../../img/giphy-blink.gif';
 
 const Alien = () => {
 	return (

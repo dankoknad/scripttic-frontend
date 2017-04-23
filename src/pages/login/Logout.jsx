@@ -1,5 +1,5 @@
 import React from 'react';
-import giphy from './img/giphy.gif';
+import giphy from '../../img/giphy.gif';
 
 const Logout = ({handleLogout}) => {
 	return (

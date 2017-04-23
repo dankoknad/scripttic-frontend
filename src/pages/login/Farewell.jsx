@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import giphy from './img/giphy-sad.gif';
+import giphy from '../../img/giphy-sad.gif';
 
 const Farewell = () => {
 	return (

@@ -4,19 +4,19 @@ import {
   Route
 } from 'react-router-dom';
 
-import Navigation from './Navigation';
-import ArticlesLinks from './ArticlesLinks';
-import Article from './Article';
-import Comments from './Comments';
-import LogIn from './LogIn';
-import SignIn from './SignIn';
-import Logout from './Logout';
-import Farewell from './Farewell';
-import Profile from './Profile';
-import Alien from './Alien';
-import NewArticleForm from './NewArticleForm';
-import MyArticles from './MyArticles';
-import MyComments from './MyComments';
+import Navigation from './pages/nav/Navigation';
+import ArticlesLinks from './pages/articles/ArticlesLinks';
+import Article from './pages/articles/Article';
+import Comments from './pages/comments/Comments';
+import LogIn from './pages/login/LogIn';
+import SignIn from './pages/login/SignIn';
+import Logout from './pages/login/Logout';
+import Farewell from './pages/login/Farewell';
+import Profile from './pages/admin/Profile';
+import Alien from './pages/404/Alien';
+import NewArticleForm from './pages/admin/NewArticleForm';
+import MyArticles from './pages/admin/MyArticles';
+import MyComments from './pages/admin/MyComments';
 import AddCommentForm from './AddCommentForm';
 import _ from 'lodash';
 
@@ -32,8 +32,8 @@ import {
 } from './lib/helpers.js';
 
 import 'bootstrap/dist/css/bootstrap.css';
-import logo from './logo.svg';
-import './App.css';
+import logo from './img/logo.svg';
+import './css/App.css';
 import './css/index.css';
 
 class App extends Component {
@@ -207,12 +207,14 @@ class App extends Component {
 		const {token, newCommentTitle, newCommentContent, loggedUser} = this.state;
 		const payload = {
 			poster: loggedUser.id,
-			body: newCommentContent,
-			title: newCommentTitle
+			title: newCommentTitle,
+			body: newCommentContent
 		}
 
 		submitNewComment(token, payload, articleId)
-			.then(() => {
+			.then((d) => {
+				console.log(d)
+
 				getData(`${baseUrl}/${articleId}/comment`)
 					.then(comments => {
 						this.setState({
@@ -233,6 +235,7 @@ class App extends Component {
 					<div className="App-header">
 						<img src={logo} className="App-logo" alt="logo" />
 						<h3>Hello Scripttic</h3>
+						<div className="author">Made with <span className="text-danger">♥</span> by <a href="http://dankoknad.github.io/" target="_blank">Danko</a></div>
 					</div>
 					<Navigation 
 						loggedUser={loggedUser}

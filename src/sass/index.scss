@@ -5,7 +5,9 @@ $r: #f0f;
 	padding-top: 10px;
 	padding-bottom: 10px;
 }
-
+.navbar {
+	border-radius: 0;
+}
 .login-form {
 	margin-top: 50px;
 	
@@ -16,7 +18,8 @@ $r: #f0f;
 
 .new-article-form-container,
 .new-comment-form-container,
-.profile-card {
+.profile-card,
+.container-shrink {
 	max-width: 600px;
 	margin: 0 auto;
 	padding-left: 15px;
@@ -26,4 +29,13 @@ $r: #f0f;
 		padding-left: 0;
 		padding-right: 0;
 	}
+}
+
+.article {
+	margin-bottom: 50px;
+}
+
+.article-body {
+	margin-top: 50px;
+	margin-bottom: 50px;
 }
