@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import {
   BrowserRouter as Router,
-  Route
+  Route,
+	Switch
 } from 'react-router-dom';
 
 import Navigation from './pages/nav/Navigation';
@@ -14,6 +15,7 @@ import Logout from './pages/login/Logout';
 import Farewell from './pages/login/Farewell';
 import Profile from './pages/admin/Profile';
 import Alien from './pages/404/Alien';
+import NoMatch from './pages/404/NoMatch';
 import NewArticleForm from './pages/admin/NewArticleForm';
 import MyArticles from './pages/admin/MyArticles';
 import MyComments from './pages/admin/MyComments';
@@ -244,82 +246,85 @@ class App extends Component {
 					<div className="container">
 						<div className="row">
 							<div className="col-sm-12">
-								<Route exact path="/" render={() => (
-                	<ArticlesLinks articles={articles} />
-									)}
-								/>
+								<Switch>
+									<Route exact path="/" render={() => (
+										<ArticlesLinks articles={articles} />
+										)}
+									/>
 
-								{	(articles.length) 
-									? <Route path="/article/:articleId" render={({match}) => {
-											const article = _.find(articles, (o) => o.id === Number(match.params.articleId) );
-											return (
-												<Article article={article} >
-													{(loggedUser.id) && 
-														<AddCommentForm
-															newCommentTitle={newCommentTitle}
-															newCommentContent={newCommentContent}
-															handleNewCommentInputs={this.handleNewCommentInputs}
-															postNewComment={this.postNewComment}
-															articleId={article.id}
-														/>
-													}
-													<Comments comments={_.filter(comments, (o) => o.article === article.id )}/>
-												</Article>	
-											)
-										}} />
-									: null
-								}
+									{	(articles.length) 
+										? <Route path="/article/:articleId" render={({match}) => {
+												const article = _.find(articles, (o) => o.id === Number(match.params.articleId) );
+												return (
+													<Article article={article} >
+														{(loggedUser.id) && 
+															<AddCommentForm
+																newCommentTitle={newCommentTitle}
+																newCommentContent={newCommentContent}
+																handleNewCommentInputs={this.handleNewCommentInputs}
+																postNewComment={this.postNewComment}
+																articleId={article.id}
+															/>
+														}
+														<Comments comments={_.filter(comments, (o) => o.article === article.id )}/>
+													</Article>	
+												)
+											}} />
+										: null
+									}
 
-								<Route path="/login" render={() => (
-									(token.length !== 36)
-										? <LogIn
-												handleSubmitLogin={this.handleSubmitLogin}
-												loginEmailVal={loginEmailVal}
-												loginPassVal={loginPassVal}
-												handleLoginEmailVal={this.handleLoginEmailVal}
-												handleLoginPassVal={this.handleLoginPassVal}
-												token={token}
-											>
-												<SignIn
-													handleRegistrationInputs={this.handleRegistrationInputs}
-													handleSubmitRegistration={this.handleSubmitRegistration}
-													signInFirstName={signInFirstName}
-													signInLastName={signInLastName}
-													signInEmailVal={signInEmailVal}
-													signInPassVal={signInPassVal}
-												/>
-											</LogIn>
-										: <h3 className="text-info">Success! Now you are logged.</h3>
-									)}
-								/>
+									<Route path="/login" render={() => (
+										(token.length !== 36)
+											? <LogIn
+													handleSubmitLogin={this.handleSubmitLogin}
+													loginEmailVal={loginEmailVal}
+													loginPassVal={loginPassVal}
+													handleLoginEmailVal={this.handleLoginEmailVal}
+													handleLoginPassVal={this.handleLoginPassVal}
+													token={token}
+												>
+													<SignIn
+														handleRegistrationInputs={this.handleRegistrationInputs}
+														handleSubmitRegistration={this.handleSubmitRegistration}
+														signInFirstName={signInFirstName}
+														signInLastName={signInLastName}
+														signInEmailVal={signInEmailVal}
+														signInPassVal={signInPassVal}
+													/>
+												</LogIn>
+											: <h3 className="text-info">Success! Now you are logged.</h3>
+										)}
+									/>
 
-								<Route path="/logout" render={() => (
-										(token.length === 36)
-											? <Logout handleLogout={this.handleLogout}/>
-											: <Farewell />
-									)}
-								/>
+									<Route path="/logout" render={() => (
+											(token.length === 36)
+												? <Logout handleLogout={this.handleLogout}/>
+												: <Farewell />
+										)}
+									/>
 
-								<Route exact path="/profile" render={() => (
-									loggedUser.id
-										? (<Profile loggedUser={loggedUser}>
-												<NewArticleForm
-													newArticleTitle={newArticleTitle}
-													newArticleContent={newArticleContent}
-													handleNewArticleInputs={this.handleNewArticleInputs}
-													postNewArticle={this.postNewArticle}
-												/>
-												<MyArticles
-													articles={_.filter(articles, (o) => o.poster === loggedUser.id )}
-												/>
-												<MyComments
-													comments={_.filter(comments, (o) => o.poster === loggedUser.id )}
-												/>
-											</Profile>)
-										: <Alien />
-									)}
-								/>
+									<Route exact path="/profile" render={() => (
+										loggedUser.id
+											? (<Profile loggedUser={loggedUser}>
+													<NewArticleForm
+														newArticleTitle={newArticleTitle}
+														newArticleContent={newArticleContent}
+														handleNewArticleInputs={this.handleNewArticleInputs}
+														postNewArticle={this.postNewArticle}
+													/>
+													<MyArticles
+														articles={_.filter(articles, (o) => o.poster === loggedUser.id )}
+													/>
+													<MyComments
+														comments={_.filter(comments, (o) => o.poster === loggedUser.id )}
+													/>
+												</Profile>)
+											: <Alien />
+										)}
+									/>
 
+									<Route component={NoMatch}/>
+								</Switch>
 							</div>
 						</div>
 					</div>
