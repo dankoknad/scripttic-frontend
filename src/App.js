@@ -26,6 +26,7 @@ import {
 	getToken,
 	getLoggedUser,
 	logOut,
+	registration,
 	submitNewArticle,
 	submitNewComment
 } from './lib/helpers.js';
@@ -46,11 +47,11 @@ class App extends Component {
 		signInFirstName: '',
 		signInLastName: '',
 		signInEmailVal: '',
-		signInPassVal: 'Pass123!',
+		signInPassVal: '',
 		newArticleTitle: '',
 		newArticleContent: '',
-		newCommentTitle: 'abc',
-		newCommentContent: 'def'
+		newCommentTitle: 'Some title',
+		newCommentContent: 'Soome content'
 	}
 
 	// get initial data
@@ -70,16 +71,16 @@ class App extends Component {
 			})
 	
 			// log myself when app start
-			const {loginEmailVal, loginPassVal} = this.state;
-			const formData = `grant_type=Bearer&email=${loginEmailVal}&password=${loginPassVal}`;
+			// const {loginEmailVal, loginPassVal} = this.state;
+			// const formData = `grant_type=Bearer&email=${loginEmailVal}&password=${loginPassVal}`;
 
-			getToken('http://www.scripttic.com:8000/oauth2/token', formData)
-			.then(token => {
-				this.setState({token});
+			// getToken('http://www.scripttic.com:8000/oauth2/token', formData)
+			// .then(token => {
+			// 	this.setState({token});
 
-					getLoggedUser(token)
-						.then(user => this.setState({loggedUser: user}))
-			})
+			// 		getLoggedUser(token)
+			// 			.then(user => this.setState({loggedUser: user}))
+			// })
 			// remove section above later
   }
 
@@ -144,29 +145,16 @@ class App extends Component {
 			firstName: signInFirstName,
 			lastName: signInLastName
 		}
-
-		fetch('http://www.scripttic.com:8000/api/v1/user', {
-			method: 'POST',
-			headers: {
-				'Accept': 'application/json',
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(newUser)
-		}).then(res => res.json())
-		.then(d => { console.log(d)})
-		// console.log(newUser);
-
-		// registration(newUser)
-		// 	.then(() => {
-		// 		this.setState({
-		// 			signInFirstName: '',
-		// 			signInLastName: '',
-		// 			signInEmailVal: '',
-		// 			signInPassVal: ''
-		// 		})
-		// 		console.log('registration success');
-		// 	})
-
+		
+		registration(newUser)			
+			.then(() => {
+				this.setState({
+					signInFirstName: '',
+					signInLastName: '',
+					signInEmailVal: '',
+					signInPassVal: ''
+				});
+			})
 	}
 
 	// add new article
