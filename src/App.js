@@ -14,6 +14,7 @@ import SignIn from './SignIn';
 import Logout from './Logout';
 import Farewell from './Farewell';
 import Profile from './Profile';
+import Alien from './Alien';
 import NewArticleForm from './NewArticleForm';
 import MyArticles from './MyArticles';
 import MyComments from './MyComments';
@@ -333,20 +334,22 @@ class App extends Component {
 								/>
 
 								<Route exact path="/profile" render={() => (
-										<Profile loggedUser={loggedUser}>
-											<NewArticleForm
-												newArticleTitle={newArticleTitle}
-												newArticleContent={newArticleContent}
-												handleNewArticleInputs={this.handleNewArticleInputs}
-												postNewArticle={this.postNewArticle}
-											/>
-											<MyArticles
-												articles={_.filter(articles, (o) => o.poster === loggedUser.id )}
-											/>
-											<MyComments
-												comments={_.filter(comments, (o) => o.poster === loggedUser.id )}
-											/>
-										</Profile>
+									loggedUser.id
+										? (<Profile loggedUser={loggedUser}>
+												<NewArticleForm
+													newArticleTitle={newArticleTitle}
+													newArticleContent={newArticleContent}
+													handleNewArticleInputs={this.handleNewArticleInputs}
+													postNewArticle={this.postNewArticle}
+												/>
+												<MyArticles
+													articles={_.filter(articles, (o) => o.poster === loggedUser.id )}
+												/>
+												<MyComments
+													comments={_.filter(comments, (o) => o.poster === loggedUser.id )}
+												/>
+											</Profile>)
+										: <Alien />
 									)}
 								/>
 
