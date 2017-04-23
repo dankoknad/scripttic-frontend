@@ -46,7 +46,7 @@ class App extends Component {
 		signInFirstName: '',
 		signInLastName: '',
 		signInEmailVal: '',
-		signInPassVal: '',
+		signInPassVal: 'Pass123!',
 		newArticleTitle: '',
 		newArticleContent: '',
 		newCommentTitle: 'abc',
@@ -70,16 +70,16 @@ class App extends Component {
 			})
 	
 			// log myself when app start
-			const {loginEmailVal, loginPassVal} = this.state;
-			const formData = `grant_type=Bearer&email=${loginEmailVal}&password=${loginPassVal}`;
+			// const {loginEmailVal, loginPassVal} = this.state;
+			// const formData = `grant_type=Bearer&email=${loginEmailVal}&password=${loginPassVal}`;
 
-			getToken('http://www.scripttic.com:8000/oauth2/token', formData)
-			.then(token => {
-				this.setState({token});
+			// getToken('http://www.scripttic.com:8000/oauth2/token', formData)
+			// .then(token => {
+			// 	this.setState({token});
 
-					getLoggedUser(token)
-						.then(user => this.setState({loggedUser: user}))
-			})
+			// 		getLoggedUser(token)
+			// 			.then(user => this.setState({loggedUser: user}))
+			// })
 			// remove section above later
   }
 
@@ -286,13 +286,15 @@ class App extends Component {
 											const article = _.find(articles, (o) => o.id === Number(match.params.articleId) );
 											return (
 												<Article article={article} >
-													<AddCommentForm
-														newCommentTitle={newCommentTitle}
-														newCommentContent={newCommentContent}
-														handleNewCommentInputs={this.handleNewCommentInputs}
-														postNewComment={this.postNewComment}
-														articleId={article.id}
-													/>
+													{(loggedUser.id) && 
+														<AddCommentForm
+															newCommentTitle={newCommentTitle}
+															newCommentContent={newCommentContent}
+															handleNewCommentInputs={this.handleNewCommentInputs}
+															postNewComment={this.postNewComment}
+															articleId={article.id}
+														/>
+													}
 													<Comments comments={_.filter(comments, (o) => o.article === article.id )}/>
 												</Article>	
 											)
@@ -341,7 +343,9 @@ class App extends Component {
 											<MyArticles
 												articles={_.filter(articles, (o) => o.poster === loggedUser.id )}
 											/>
-											<MyComments />
+											<MyComments
+												comments={_.filter(comments, (o) => o.poster === loggedUser.id )}
+											/>
 										</Profile>
 									)}
 								/>

@@ -12,7 +12,10 @@ const Comments = ({comments}) => {
 
 	return (		
 		(comments.length > 0) 
-			? <div>{renderedComments}</div>
+			? <div>
+					<h4>Comments:</h4>
+					<div>{renderedComments}</div>
+				</div>
 			: <em>This article is not commented yet.</em>
 	)
 }
