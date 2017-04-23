@@ -3,8 +3,6 @@ import {
   BrowserRouter as Router,
   Route
 } from 'react-router-dom';
-import {Navbar, Nav, NavItem, NavDropdown, MenuItem} from 'react-bootstrap';
-import {LinkContainer} from 'react-router-bootstrap';
 
 import Navigation from './Navigation';
 import ArticlesLinks from './ArticlesLinks';

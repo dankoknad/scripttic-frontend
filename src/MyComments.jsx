@@ -2,7 +2,7 @@ import React from 'react';
 
 const MyComments = ({comments}) => {
 	return (
-		<div>
+		<div className="col-sm-6">
 			{(comments.length) ? <h3>My comments:</h3> : null}
 			{
 				(comments.length)

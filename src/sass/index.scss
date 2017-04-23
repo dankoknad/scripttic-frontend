@@ -9,7 +9,7 @@ $r: #f0f;
 .login-form {
 	margin-top: 50px;
 	
-	@media (min-width: 768px){
+	@media (min-width: 610px){
 		text-align: right;
 	}
 }
@@ -19,4 +19,11 @@ $r: #f0f;
 .profile-card {
 	max-width: 600px;
 	margin: 0 auto;
+	padding-left: 15px;
+	padding-right: 15px;
+	
+	@media (min-width: 620px){
+		padding-left: 0;
+		padding-right: 0;
+	}
 }

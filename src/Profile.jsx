@@ -10,7 +10,7 @@ const Profile = ({loggedUser, children}) => {
 				<h4><code>ID: {loggedUser.id}</code></h4>
 			</div>
 			{/* NewArticleForm, MyArticles, MyComments */}
-			{children}
+			<div className="row">{children}</div>
 		</div>
 	);
 };

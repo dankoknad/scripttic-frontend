@@ -2,7 +2,7 @@ import React from 'react';
 
 const MyArticles = ({articles}) => {
 	return (
-		<div>
+		<div className="col-sm-6">
 			{(articles.length) ? <h3>My articles:</h3> : null}
 			{
 				(articles.length)
