@@ -6,14 +6,18 @@ const MyComments = ({comments}) => {
 			{(comments.length) ? <h3>My comments:</h3> : null}
 			{
 				(comments.length)
-					? comments.map(comment => (
-						<div key={comment.id}>
-							<div>{comment.title}</div>
-							<div>{comment.body}</div>
-							<div><code>{comment.id}</code></div>
-							<hr/>
+					? <div className="list-group">
+							{comments.map(comment => (
+								<div key={comment.id} className="list-group-item">
+									<div>{comment.title}</div>
+									<div>{comment.body}</div>
+									<div><code>{comment.id}</code></div>
+									<div className="text-right">
+										<a href="#" className="text-danger glyphicon glyphicon-remove"></a>
+									</div>
+								</div>
+							))}
 						</div>
-					))
 					: <h3>you don't have any comments yet</h3>
 			}
 		</div>
