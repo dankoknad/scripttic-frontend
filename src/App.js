@@ -70,17 +70,17 @@ class App extends Component {
 				})
 			})
 	
-			// log myself when app start
-			const {loginEmailVal, loginPassVal} = this.state;
-			const formData = `grant_type=Bearer&email=${loginEmailVal}&password=${loginPassVal}`;
+			// log myself when app start (development)
+			// const {loginEmailVal, loginPassVal} = this.state;
+			// const formData = `grant_type=Bearer&email=${loginEmailVal}&password=${loginPassVal}`;
 
-			getToken('http://www.scripttic.com:8000/oauth2/token', formData)
-			.then(token => {
-				this.setState({token});
+			// getToken('http://www.scripttic.com:8000/oauth2/token', formData)
+			// .then(token => {
+			// 	this.setState({token});
 
-					getLoggedUser(token)
-						.then(user => this.setState({loggedUser: user}))
-			})
+			// 		getLoggedUser(token)
+			// 			.then(user => this.setState({loggedUser: user}))
+			// })
 			// remove section above later
   }
 
