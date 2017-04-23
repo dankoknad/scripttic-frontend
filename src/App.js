@@ -146,14 +146,23 @@ class App extends Component {
 			lastName: signInLastName
 		}
 		
+		const formData = `grant_type=Bearer&email=${signInEmailVal}&password=${signInPassVal}`;
+		
 		registration(newUser)			
-			.then(() => {
-				this.setState({
-					signInFirstName: '',
-					signInLastName: '',
-					signInEmailVal: '',
-					signInPassVal: ''
-				});
+			.then(() => {		
+				getToken('http://www.scripttic.com:8000/oauth2/token', formData)
+					.then(token => {
+						this.setState({
+							token,
+							signInFirstName: '',
+							signInLastName: '',
+							signInEmailVal: '',
+							signInPassVal: ''
+						});
+
+						getLoggedUser(token)
+							.then(user => this.setState({loggedUser: user}))
+					})				
 			})
 	}
 
