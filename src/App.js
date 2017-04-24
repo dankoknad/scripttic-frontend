@@ -234,11 +234,21 @@ class App extends Component {
 	// remove comment 
 	handleCommentRemove = (e, comment) => {
 		e.preventDefault();
-		const {token} = this.state;
-		console.log(comment.article, comment.id);
+		const {token, comments} = this.state;
+		const commentIndex = _.findIndex(comments, function(o) { return o.id == comment.id; });
 		
+		// console.log(comment.article, comment.id);
+		// console.log(commentIndex);
+
 		removeComment(comment.article, comment.id, token)
-			
+			.then(() => {
+				this.setState({
+					comments: [
+						...comments.slice(0, commentIndex),
+						...comments.slice(commentIndex + 1)
+					]
+				})				
+			})
 	}
 
   render() {
