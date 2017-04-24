@@ -19,7 +19,7 @@ import NoMatch from './pages/404/NoMatch';
 import NewArticleForm from './pages/admin/NewArticleForm';
 import MyArticles from './pages/admin/MyArticles';
 import MyComments from './pages/admin/MyComments';
-import AddCommentForm from './AddCommentForm';
+import AddCommentForm from './pages/comments/AddCommentForm';
 import _ from 'lodash';
 
 import {
@@ -73,16 +73,18 @@ class App extends Component {
 			})
 	
 			// log myself when app start (development)
-			// const {loginEmailVal, loginPassVal} = this.state;
-			// const formData = `grant_type=Bearer&email=${loginEmailVal}&password=${loginPassVal}`;
 
-			// getToken('http://www.scripttic.com:8000/oauth2/token', formData)
-			// .then(token => {
-			// 	this.setState({token});
+				// const {loginEmailVal, loginPassVal} = this.state;
+				// const formData = `grant_type=Bearer&email=${loginEmailVal}&password=${loginPassVal}`;
 
-			// 		getLoggedUser(token)
-			// 			.then(user => this.setState({loggedUser: user}))
-			// })
+				// getToken('http://www.scripttic.com:8000/oauth2/token', formData)
+				// .then(token => {
+				// 	this.setState({token});
+
+				// 		getLoggedUser(token)
+				// 			.then(user => this.setState({loggedUser: user}))
+				// })
+				
 			// remove section above later
   }
 

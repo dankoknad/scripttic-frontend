@@ -1,6 +1,9 @@
 import React from 'react';
 
 const NewArticleForm = ({newArticleTitle, newArticleContent, handleNewArticleInputs, postNewArticle}) => {
+	const length = newArticleTitle.length + newArticleContent.length;
+	const isGoodLength = (length > 0 && length < 256);
+	const isForSubmit = (isGoodLength && newArticleTitle.length && newArticleContent.length);
 	return (
 		<div className="new-article-form-container">
 			<h4>It's a nice day to writte a new article!</h4>
@@ -27,7 +30,8 @@ const NewArticleForm = ({newArticleTitle, newArticleContent, handleNewArticleInp
 					</textarea>
 				</div>
 				<div className="form-group text-right">
-					<button type="submit" className="btn btn-default">Submit</button>
+					<span className={isGoodLength ? "text-success" : "text-danger" }>{length}</span>{' '}
+					<button type="submit" className="btn btn-default" disabled={!isForSubmit}>Submit</button>
 				</div>
 			</form>
 		</div>
