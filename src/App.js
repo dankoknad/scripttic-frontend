@@ -234,10 +234,7 @@ class App extends Component {
 	handleCommentRemove = (e, comment) => {
 		e.preventDefault();
 		const {token, comments} = this.state;
-		const commentIndex = _.findIndex(comments, function(o) { return o.id === comment.id; });
-		
-		// console.log(comment.article, comment.id);
-		// console.log(commentIndex);
+		const commentIndex = _.findIndex(comments, (o) => o.id === comment.id);
 
 		removeComment(comment.article, comment.id, token)
 			.then(() => {
