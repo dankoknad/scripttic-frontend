@@ -71,7 +71,6 @@ export const submitNewArticle = (token, payload) => {
 		},
 		body: JSON.stringify(payload)
 	}).then(res => res.json())
-		.then((d) => console.log(d))
 }
 
 // post new comment

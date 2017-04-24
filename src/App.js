@@ -189,15 +189,15 @@ class App extends Component {
 		}
 
 		submitNewArticle(token, payload)
-			.then(() => {
-				getData(baseUrl)
-					.then(articles => {
-						this.setState({
-							articles,
-							newArticleTitle: '',
-							newArticleContent: ''
-						});
-					})
+			.then((newArticle) => {
+				this.setState({
+					articles: [
+						newArticle,
+						...this.state.articles
+					],
+					newArticleTitle: '',
+					newArticleContent: ''
+				});
 			})
 	}
 
@@ -218,19 +218,15 @@ class App extends Component {
 		}
 
 		submitNewComment(token, payload, articleId)
-			.then((d) => {
-				getData(`${baseUrl}/${articleId}/comment`)
-					.then(comments => {
-						const newComment = _.difference(this.state.comments, comments);
-						this.setState({
-							comments: [
-								...this.state.comments,
-								newComment
-							],
-							newCommentTitle: '',
-							newCommentContent: ''
-						})
-					})				
+			.then((newComment) => {
+				this.setState({
+					comments: [
+						...this.state.comments,
+						newComment
+					],
+					newCommentTitle: '',
+					newCommentContent: ''
+				})
 			})
 	}
 
