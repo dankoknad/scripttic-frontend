@@ -219,12 +219,14 @@ class App extends Component {
 
 		submitNewComment(token, payload, articleId)
 			.then((d) => {
-				console.log(d)
-
 				getData(`${baseUrl}/${articleId}/comment`)
 					.then(comments => {
+						const newComment = _.difference(this.state.comments, comments);
 						this.setState({
-							comments,
+							comments: [
+								...this.state.comments,
+								newComment
+							],
 							newCommentTitle: '',
 							newCommentContent: ''
 						})
