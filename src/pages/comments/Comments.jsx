@@ -6,6 +6,7 @@ const Comments = ({comments}) => {
 			<div>Comment title: {comment.title}</div>
 			<div>Comment body: {comment.body}</div>
 			<div><code>Comment ID: {comment.id}</code></div>
+			<div><code>Poster ID: {comment.poster}</code></div>
 		</div>
 	));
 

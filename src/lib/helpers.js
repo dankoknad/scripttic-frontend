@@ -86,9 +86,33 @@ export const submitNewComment = (token, payload, articleId) => {
 	}).then(res => res.json())
 }
 
+// delete comment
+export const removeComment = (articleId, commentId, token) => {
+  return fetch(`http://www.scripttic.com:8000/api/v1/article/${articleId}/comment/${commentId}?api_key=Bearer ${token}`, {
+    method: 'DELETE',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    }
+  })
+}
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+// code from some other project of mine:
 // save data addPost
 export const publishPost = (post, url) => {
   return fetch(url, {
