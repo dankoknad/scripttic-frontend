@@ -103,7 +103,11 @@ class App extends Component {
 				this.setState({token});
 
 					getLoggedUser(token)
-						.then(user => this.setState({loggedUser: user}))
+						.then(user => this.setState({
+							loggedUser: user, 
+							signInErrMsg: ''
+						})
+					)
 			})
 	}
 
