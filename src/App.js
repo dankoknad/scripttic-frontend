@@ -75,7 +75,7 @@ class App extends Component {
 				})
 			})
 	
-			// log myself when app start (development)
+			// log in myself when app start (development)
 
 				// const {loginEmailVal, loginPassVal} = this.state;
 				// const formData = `grant_type=Bearer&email=${loginEmailVal}&password=${loginPassVal}`;
