@@ -1,10 +1,15 @@
+// TO DO
+// Static type checking with Flow
+
 import React, { Component } from 'react';
 import {
   BrowserRouter as Router,
   Route,
 	Switch
 } from 'react-router-dom';
+import _ from 'lodash';
 
+// components
 import Navigation from './pages/nav/Navigation';
 import ArticlesLinks from './pages/articles/ArticlesLinks';
 import Article from './pages/articles/Article';
@@ -20,8 +25,8 @@ import NewArticleForm from './pages/admin/NewArticleForm';
 import MyArticles from './pages/admin/MyArticles';
 import MyComments from './pages/admin/MyComments';
 import AddCommentForm from './pages/comments/AddCommentForm';
-import _ from 'lodash';
 
+// helpers
 import {
 	getData,
 	baseUrl,
