@@ -117,6 +117,8 @@ class App extends Component {
 			})
 	}
 
+	// TO DO
+	// refator handleLoginEmailVal and handleLoginPassVal
 	handleLoginEmailVal = (e) => {
 		e.preventDefault();
 		
@@ -249,9 +251,6 @@ class App extends Component {
 					newCommentContent: ''
 				})
 			})
-
-
-
 	} 
 
 	// remove comment 
