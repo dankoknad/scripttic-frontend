@@ -119,14 +119,12 @@ class App extends Component {
 	handleLoginEmailVal = (e) => {
 		e.preventDefault();
 		
-		// console.log(e.target.value);
 		this.setState({loginEmailVal: e.target.value.trim()});
 	}
 	
 	handleLoginPassVal = (e) => {
 		e.preventDefault();
 		
-		// console.log(e.target.value);
 		this.setState({loginPassVal: e.target.value.trim()});
 	}
 

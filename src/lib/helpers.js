@@ -1,5 +1,6 @@
 export const baseUrl = 'http://www.scripttic.com:8000/api/v1/article';
-
+// TO DO
+// shorten baseUrl to 'http://www.scripttic.com:8000/api/v1/'
 
 // load data
 export const getData = (url) => {
