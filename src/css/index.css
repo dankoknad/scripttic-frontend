@@ -15,18 +15,12 @@
   .text-right-sm {
     text-align: right; } }
 
-.new-article-form-container,
-.new-comment-form-container,
-.profile-card,
 .container-shrink {
   max-width: 600px;
   margin: 0 auto;
   padding-left: 15px;
   padding-right: 15px; }
   @media (min-width: 620px) {
-    .new-article-form-container,
-    .new-comment-form-container,
-    .profile-card,
     .container-shrink {
       padding-left: 0;
       padding-right: 0; } }

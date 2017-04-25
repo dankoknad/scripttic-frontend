@@ -43,8 +43,8 @@ class App extends Component {
 	state = {
 		articles: [],
 		comments: [],
-		loginEmailVal: 'dankomilutinovic@gmail.com',
-		// loginEmailVal: 'test2@scripttic.com',
+		// loginEmailVal: 'dankomilutinovic@gmail.com',
+		loginEmailVal: 'test2@scripttic.com',
 		loginPassVal: 'Pass123!',
 		token: '',
 		loggedUser: {},

@@ -4,8 +4,9 @@ const AddCommentForm = ({newCommentTitle, newCommentContent, handleNewCommentInp
 	const length = newCommentTitle.length + newCommentContent.length;
 	const isGoodLength = (length > 0 && length < 256);
 	const isForSubmit = (isGoodLength && newCommentTitle.length && newCommentContent.length);
+	
 	return (
-		<div className="new-comment-form-container">
+		<div className="container-shrink">
 			<h4>Have somethingto say? Please go ahead!</h4>
 			<form onSubmit={(e) => postNewComment(e, articleId)}>
 				<p>Title</p>

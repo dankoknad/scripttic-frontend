@@ -3,8 +3,8 @@ import React from 'react';
 const Comments = ({comments}) => {
 	const renderedComments = comments.map(comment => (
 		<div key={comment.id} className="list-group-item">
-			<div>Comment title: {comment.title}</div>
-			<div>Comment body: {comment.body}</div>
+			<div>{comment.title}</div>
+			<div>{comment.body}</div>
 			<div><code>Comment ID: {comment.id}</code></div>
 			<div><code>Poster ID: {comment.poster}</code></div>
 		</div>

@@ -5,7 +5,7 @@ const NewArticleForm = ({newArticleTitle, newArticleContent, handleNewArticleInp
 	const isGoodLength = (length > 0 && length < 256);
 	const isForSubmit = (isGoodLength && newArticleTitle.length && newArticleContent.length);
 	return (
-		<div className="new-article-form-container">
+		<div className="container-shrink">
 			<h4>It's a nice day to writte a new article!</h4>
 			<form onSubmit={postNewArticle}>
 				<p>Title</p>
