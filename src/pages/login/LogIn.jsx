@@ -31,7 +31,7 @@ const Login = ({handleSubmitLogin, loginEmailVal, loginPassVal, handleLoginEmail
 
 			<div>
 				<h3>Sign In</h3>
-				<p>You don't have an account? It's not a  problem. You can make one!</p>
+				<p>You don't have an account? It's not a  problem. You can make one!</p><br/>
 				{children}
 			</div>
 		</div>

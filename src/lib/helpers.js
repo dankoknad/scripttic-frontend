@@ -1,4 +1,3 @@
-// import Remarkable from 'remarkable';
 export const baseUrl = 'http://www.scripttic.com:8000/api/v1/article';
 
 
@@ -58,7 +57,7 @@ export const registration = (newUser) => {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(newUser)
-  }).then(res => res.json())
+  })
 }
 
 // post new article

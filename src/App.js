@@ -48,10 +48,11 @@ class App extends Component {
 		loginPassVal: 'Pass123!',
 		token: '',
 		loggedUser: {},
-		signInFirstName: '',
-		signInLastName: '',
-		signInEmailVal: '',
-		signInPassVal: '',
+		signInFirstName: 'abc',
+		signInLastName: 'abc',
+		signInEmailVal: 'abc@def.com',
+		signInPassVal: '123',
+		signInErrMsg: '',
 		newArticleTitle: '',
 		newArticleContent: '',
 		newCommentTitle: 'Some title',
@@ -76,16 +77,16 @@ class App extends Component {
 	
 			// log myself when app start (development)
 
-				const {loginEmailVal, loginPassVal} = this.state;
-				const formData = `grant_type=Bearer&email=${loginEmailVal}&password=${loginPassVal}`;
+				// const {loginEmailVal, loginPassVal} = this.state;
+				// const formData = `grant_type=Bearer&email=${loginEmailVal}&password=${loginPassVal}`;
 
-				getToken('http://www.scripttic.com:8000/oauth2/token', formData)
-				.then(token => {
-					this.setState({token});
+				// getToken('http://www.scripttic.com:8000/oauth2/token', formData)
+				// .then(token => {
+				// 	this.setState({token});
 
-						getLoggedUser(token)
-							.then(user => this.setState({loggedUser: user}))
-				})
+				// 		getLoggedUser(token)
+				// 			.then(user => this.setState({loggedUser: user}))
+				// })
 
 			// remove section above later
   }
@@ -153,23 +154,35 @@ class App extends Component {
 		}
 		
 		const formData = `grant_type=Bearer&email=${signInEmailVal}&password=${signInPassVal}`;
+
+		const msg = (status) => {
+			if (status === 406){
+				this.setState({signInErrMsg: 'Email already in use'});
+			} else if (status === 405){
+				this.setState({signInErrMsg: 'Password needs at least 6 characters, one capital letter, one number and one special character'});
+			}
+		}
 		
 		registration(newUser)		
-			.then(() => {		
-				getToken('http://www.scripttic.com:8000/oauth2/token', formData)
-					.then(token => {
-						this.setState({
-							token,
-							signInFirstName: '',
-							signInLastName: '',
-							signInEmailVal: '',
-							signInPassVal: ''
-						});
+			.then((response) => {	
+				(!response.ok)
+					? msg(response.status)
+					: getToken('http://www.scripttic.com:8000/oauth2/token', formData)
+						.then(token => {
+							this.setState({
+								token,
+								signInFirstName: '',
+								signInLastName: '',
+								signInEmailVal: '',
+								signInPassVal: '',
+								signInErrMsg: ''
+							});
 
-						getLoggedUser(token)
-							.then(user => this.setState({loggedUser: user}))
-					})				
+							getLoggedUser(token)
+								.then(user => this.setState({loggedUser: user}))
+						})				
 			})
+			.catch(err => console.log(err))
 	}
 
 	// add new article
@@ -248,7 +261,7 @@ class App extends Component {
 	}
 
   render() {
-		const {articles, comments, loginEmailVal, loginPassVal, loggedUser, token, signInFirstName, signInLastName, signInEmailVal, signInPassVal, newArticleTitle, newArticleContent, newCommentTitle, newCommentContent} = this.state;
+		const {articles, comments, loginEmailVal, loginPassVal, loggedUser, token, signInFirstName, signInLastName, signInEmailVal, signInPassVal, signInErrMsg, newArticleTitle, newArticleContent, newCommentTitle, newCommentContent} = this.state;
 
     return (
 			<Router>
@@ -309,6 +322,7 @@ class App extends Component {
 														signInLastName={signInLastName}
 														signInEmailVal={signInEmailVal}
 														signInPassVal={signInPassVal}
+														signInErrMsg={signInErrMsg}
 													/>
 												</LogIn>
 											: <h3 className="text-info">Success! Now you are logged.</h3>

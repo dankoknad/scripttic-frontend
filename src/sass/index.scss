@@ -16,6 +16,12 @@ $r: #f0f;
 	}
 }
 
+.text-right-sm {
+	@media (min-width: 768px){
+		text-align: right;
+	}	
+}
+
 .new-article-form-container,
 .new-comment-form-container,
 .profile-card,
