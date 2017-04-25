@@ -61,7 +61,8 @@ class App extends Component {
 		newArticleTitle: '',
 		newArticleContent: '',
 		newCommentTitle: 'Some title',
-		newCommentContent: 'Some content'
+		newCommentContent: 'Some content',
+		isUserAllowedCommentsRemoval: false
 	}
 
 	// get initial data
@@ -248,23 +249,40 @@ class App extends Component {
 					newCommentContent: ''
 				})
 			})
-	}
+
+
+
+	} 
 
 	// remove comment 
 	handleCommentRemove = (e, comment) => {
 		e.preventDefault();
-		const {token, comments} = this.state;
+		const {token, comments, isUserAllowedCommentsRemoval} = this.state;
 		const commentIndex = _.findIndex(comments, (o) => o.id === comment.id);
 
-		removeComment(comment.article, comment.id, token)
-			.then(() => {
-				this.setState({
-					comments: [
-						...comments.slice(0, commentIndex),
-						...comments.slice(commentIndex + 1)
-					]
-				})				
-			})
+		const removeCommentsAfterConfirmation = () => {
+			removeComment(comment.article, comment.id, token)
+				.then(() => {
+					this.setState({
+						comments: [
+							...comments.slice(0, commentIndex),
+							...comments.slice(commentIndex + 1)
+						]
+					})				
+				})
+		}
+
+		if(!isUserAllowedCommentsRemoval) {
+			const isUserAllowedCommentsRemoval = confirm('Comment will be removed permanently! Press OK if you want to proceed or Cancel if you want to abort.');
+			this.setState({isUserAllowedCommentsRemoval});
+
+			if (isUserAllowedCommentsRemoval) {
+				removeCommentsAfterConfirmation();
+			}
+		}	else {
+			removeCommentsAfterConfirmation();
+		}
+
 	}
 
   render() {
